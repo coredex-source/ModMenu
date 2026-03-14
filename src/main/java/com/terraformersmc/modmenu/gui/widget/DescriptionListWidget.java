@@ -8,7 +8,7 @@ import net.fabricmc.loader.api.metadata.ContactInformation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -270,9 +270,9 @@ public class DescriptionListWidget extends AbstractSelectionList<DescriptionList
     }
 
     @Override
-    public void renderListItems(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void extractListItems(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
         this.enableScissor(drawContext);
-        super.renderListItems(drawContext, mouseX, mouseY, delta);
+        super.extractListItems(drawContext, mouseX, mouseY, delta);
         drawContext.disableScissor();
     }
 
@@ -306,8 +306,8 @@ public class DescriptionListWidget extends AbstractSelectionList<DescriptionList
         }
 
         @Override
-        public void renderContent(
-                GuiGraphics drawContext,
+        public void extractContent(
+                GuiGraphicsExtractor drawContext,
                 int mouseX,
                 int mouseY,
                 boolean isSelected,
@@ -320,7 +320,7 @@ public class DescriptionListWidget extends AbstractSelectionList<DescriptionList
                 x += 11;
             }
 
-            drawContext.drawString(textRenderer, text, x + indent, y, 0xFFAAAAAA);
+            drawContext.text(textRenderer, text, x + indent, y, 0xFFAAAAAA);
         }
 
         @Override
@@ -412,9 +412,9 @@ public class DescriptionListWidget extends AbstractSelectionList<DescriptionList
         }
 
         @Override
-        public void renderContent(GuiGraphics drawContext, int mouseX, int mouseY, boolean isSelected, float delta) {
-            super.renderContent(drawContext, mouseX, mouseY, isSelected, delta);
-            drawContext.drawString(textRenderer, Component.literal(" ").append(Component.literal("✉")), this.getContentX() + indent + textRenderer.width(text) + 1, this.getContentY(), 0xFFAAAAAA);
+        public void extractContent(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, boolean isSelected, float delta) {
+            super.extractContent(drawContext, mouseX, mouseY, isSelected, delta);
+            drawContext.text(textRenderer, Component.literal(" ").append(Component.literal("✉")), this.getContentX() + indent + textRenderer.width(text) + 1, this.getContentY(), 0xFFAAAAAA);
         }
 
         @Override

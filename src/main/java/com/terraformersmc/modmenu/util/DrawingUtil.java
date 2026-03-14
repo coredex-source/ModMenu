@@ -5,7 +5,7 @@ import com.terraformersmc.modmenu.util.mod.Mod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -22,7 +22,7 @@ public class DrawingUtil {
 
     public static void drawRandomVersionBackground(
             Mod mod,
-            GuiGraphics drawContext,
+            GuiGraphicsExtractor drawContext,
             int x,
             int y,
             int width,
@@ -40,7 +40,7 @@ public class DrawingUtil {
     }
 
     public static void drawWrappedString(
-            GuiGraphics drawContext,
+            GuiGraphicsExtractor drawContext,
             String string,
             int x,
             int y,
@@ -69,12 +69,12 @@ public class DrawingUtil {
                 x1 += wrapWidth - CLIENT.font.width(line);
             }
 
-            drawContext.drawString(CLIENT.font, line, x1, y + i * CLIENT.font.lineHeight, color);
+            drawContext.text(CLIENT.font, line, x1, y + i * CLIENT.font.lineHeight, color);
         }
     }
 
     public static void drawBadge(
-            GuiGraphics drawContext,
+            GuiGraphicsExtractor drawContext,
             int x,
             int y,
             int tagWidth,
@@ -93,7 +93,7 @@ public class DrawingUtil {
         );
         drawContext.fill(x + tagWidth, y, x + tagWidth + 1, y + CLIENT.font.lineHeight, outlineColor);
         drawContext.fill(x + 1, y, x + tagWidth, y + CLIENT.font.lineHeight, fillColor);
-        drawContext.drawString(CLIENT.font,
+        drawContext.text(CLIENT.font,
                 text,
                 (int) (x + 1 + (tagWidth - CLIENT.font.width(text)) / (float) 2),
                 y + 1,

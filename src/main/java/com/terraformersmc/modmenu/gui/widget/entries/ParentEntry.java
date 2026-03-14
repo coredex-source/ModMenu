@@ -6,7 +6,7 @@ import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModSearch;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -32,14 +32,14 @@ public class ParentEntry extends ModListEntry {
     }
 
     @Override
-    public void renderContent(
-            GuiGraphics drawContext,
+    public void extractContent(
+            GuiGraphicsExtractor drawContext,
             int mouseX,
             int mouseY,
             boolean isSelected,
             float delta
     ) {
-        super.renderContent(drawContext, mouseX, mouseY, isSelected, delta);
+        super.extractContent(drawContext, mouseX, mouseY, isSelected, delta);
         Font font = client.font;
         int x = this.getContentX() - 2;
         int y = this.getContentY() + this.getYOffset();
@@ -93,7 +93,7 @@ public class ParentEntry extends ModListEntry {
                 childrenBadgeY + childrenBadgeHeight,
                 childrenOutlineColor
         );
-        drawContext.drawString(
+        drawContext.text(
                 font,
                 str.getVisualOrderText(),
                 (int) (childrenBadgeX + (float) childrenBadgeWidth / 2 - (float) childrenWidth / 2),

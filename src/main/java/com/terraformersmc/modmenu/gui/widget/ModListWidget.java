@@ -10,14 +10,13 @@ import com.terraformersmc.modmenu.gui.widget.entries.ParentEntry;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModSearch;
 import com.terraformersmc.modmenu.util.mod.fabric.FabricIconHandler;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
@@ -231,7 +230,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
     }
 
     @Override
-    protected void renderListItems(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    protected void extractListItems(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
         int entryLeft = this.getRowLeft();
         int entryWidth = this.getRowWidth();
         int entryHeight = this.defaultEntryHeight - 4;
@@ -259,7 +258,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
                 }
 
                 entry.setYOffset(yOffset);
-                entry.renderContent(
+                entry.extractContent(
                         drawContext,
                         mouseX,
                         mouseY,
@@ -271,9 +270,9 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
     }
 
     /**
-     * Version of {@link #renderSelection(GuiGraphics, AbstractSelectionList.Entry, int)} with unconstrained positioning and sizing.
+     * Version of {@link #drawSelectionHighlight(GuiGraphicsExtractor, int, int, int, int, int, int)} with unconstrained positioning and sizing.
      */
-    protected void drawSelectionHighlight(GuiGraphics context, int x, int y, int width, int height, int borderColor, int fillColor) {
+    protected void drawSelectionHighlight(GuiGraphicsExtractor context, int x, int y, int width, int height, int borderColor, int fillColor) {
         context.fill(x, y - 2, x + width, y + height + 2, borderColor);
         context.fill(x + 1, y - 1, x + width - 1, y + height + 1, fillColor);
     }

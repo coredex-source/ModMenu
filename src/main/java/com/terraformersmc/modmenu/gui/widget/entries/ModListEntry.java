@@ -10,7 +10,7 @@ import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -49,8 +49,8 @@ public class ModListEntry extends ObjectSelectionList.Entry<ModListEntry> {
     }
 
     @Override
-    public void renderContent(
-            GuiGraphics drawContext,
+    public void extractContent(
+            GuiGraphicsExtractor drawContext,
             int mouseX,
             int mouseY,
             boolean hovered,
@@ -89,7 +89,7 @@ public class ModListEntry extends ObjectSelectionList.Entry<ModListEntry> {
             trimmedName = FormattedText.composite(font.substrByWidth(name, maxNameWidth - font.width(ellipsis)), ellipsis);
         }
 
-        drawContext.drawString(font,
+        drawContext.text(font,
                 Language.getInstance().getVisualOrder(trimmedName),
                 x + iconSize + 3,
                 y + 1,

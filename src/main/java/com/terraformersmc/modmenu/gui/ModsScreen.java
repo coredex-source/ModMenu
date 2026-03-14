@@ -17,7 +17,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModOrigin;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -283,27 +283,26 @@ public class ModsScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(drawContext, mouseX, mouseY, delta);
         ModListEntry selectedEntry = selected;
         if (selectedEntry != null) {
-            this.descriptionListWidget.render(drawContext, mouseX, mouseY, delta);
+            this.descriptionListWidget.extractRenderState(drawContext, mouseX, mouseY, delta);
         }
 
-        this.modList.render(drawContext, mouseX, mouseY, delta);
-        this.searchBox.render(drawContext, mouseX, mouseY, delta);
-        drawContext.drawCenteredString(this.font, this.title, this.modList.getWidth() / 2, 8, 0xFFFFFFFF);
-        assert minecraft != null;
+        this.modList.extractRenderState(drawContext, mouseX, mouseY, delta);
+        this.searchBox.extractRenderState(drawContext, mouseX, mouseY, delta);
+        drawContext.centeredText(this.font, this.title, this.modList.getWidth() / 2, 8, 0xFFFFFFFF);
         int grayColor = 0xFFAAAAAA;
         if (!ModMenuConfig.DISABLE_DRAG_AND_DROP.getValue()) {
-            drawContext.drawCenteredString(
+            drawContext.centeredText(
                     this.font,
                     ModMenuScreenTexts.DROP_INFO_LINE_1,
                     this.width - this.modList.getWidth() / 2,
                     RIGHT_PANE_Y / 2 - minecraft.font.lineHeight - 1,
                     grayColor
             );
-            drawContext.drawCenteredString(
+            drawContext.centeredText(
                     this.font,
                     ModMenuScreenTexts.DROP_INFO_LINE_2,
                     this.width - this.modList.getWidth() / 2,
@@ -318,7 +317,7 @@ public class ModsScreen extends Screen {
                 if (this.filterOptionsShown) {
                     if (!ModMenuConfig.SHOW_LIBRARIES.getValue() ||
                             font.width(fullModCount) <= this.filtersX - 5) {
-                        drawContext.drawString(
+                        drawContext.text(
                                 font,
                                 fullModCount.getVisualOrderText(),
                                 this.searchBoxX,
@@ -327,7 +326,7 @@ public class ModsScreen extends Screen {
                                 true
                         );
                     } else {
-                        drawContext.drawString(
+                        drawContext.text(
                                 font,
                                 computeModCountText(false, false).getVisualOrderText(),
                                 this.searchBoxX,
@@ -335,7 +334,7 @@ public class ModsScreen extends Screen {
                                 0xFFFFFFFF,
                                 true
                         );
-                        drawContext.drawString(
+                        drawContext.text(
                                 font,
                                 computeLibraryCountText(false).getVisualOrderText(),
                                 this.searchBoxX,
@@ -347,7 +346,7 @@ public class ModsScreen extends Screen {
                 } else {
                     if (!ModMenuConfig.SHOW_LIBRARIES.getValue() ||
                             font.width(fullModCount) <= modList.getWidth() - 5) {
-                        drawContext.drawString(font,
+                        drawContext.text(font,
                                 fullModCount.getVisualOrderText(),
                                 this.searchBoxX,
                                 52,
@@ -355,7 +354,7 @@ public class ModsScreen extends Screen {
                                 true
                         );
                     } else {
-                        drawContext.drawString(
+                        drawContext.text(
                                 font,
                                 computeModCountText(false, false).getVisualOrderText(),
                                 this.searchBoxX,
@@ -363,7 +362,7 @@ public class ModsScreen extends Screen {
                                 0xFFFFFFFF,
                                 true
                         );
-                        drawContext.drawString(
+                        drawContext.text(
                                 font,
                                 computeLibraryCountText(false).getVisualOrderText(),
                                 this.searchBoxX,
@@ -394,7 +393,7 @@ public class ModsScreen extends Screen {
                 trimmedName = FormattedText.composite(font.substrByWidth(name, maxNameWidth - font.width(ellipsis)), ellipsis);
             }
 
-            drawContext.drawString(
+            drawContext.text(
                     font,
                     Language.getInstance().getVisualOrder(trimmedName),
                     x + imageOffset,
@@ -425,7 +424,7 @@ public class ModsScreen extends Screen {
             }
 
             if (mod.isReal()) {
-                drawContext.drawString(
+                drawContext.text(
                         font,
                         mod.getPrefixedVersion(),
                         x + imageOffset,
