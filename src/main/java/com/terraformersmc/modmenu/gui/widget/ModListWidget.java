@@ -162,7 +162,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
         addedMods.clear();
         Collection<Mod> mods = ModMenu.MODS.values().stream().filter(mod -> {
             if (ModMenuConfig.CONFIG_MODE.getValue()) {
-                return !parent.getModHasConfigScreen(mod.getId());
+                return parent.getModHasConfigScreen(mod.getId());
             } else {
                 return !mod.isHidden();
             }
