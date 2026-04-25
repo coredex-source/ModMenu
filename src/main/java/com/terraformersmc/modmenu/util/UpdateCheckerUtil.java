@@ -101,9 +101,10 @@ public class UpdateCheckerUtil {
                 currentVersions = currentVersionsFuture.get();
                 updatedVersions = updatedVersionsFuture.get();
             } catch (ExecutionException e) {
-                throw new RuntimeException(e);
+                LOGGER.error("Error checking for updates: ", e.getCause() != null ? e.getCause() : e);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                LOGGER.error("Error checking for updates: ", e);
             }
         } finally {
             executor.shutdown();
@@ -210,7 +211,10 @@ public class UpdateCheckerUtil {
 
                 return results;
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            LOGGER.error("Error checking for versions: ", e);
+        } catch (IOException | RuntimeException e) {
             LOGGER.error("Error checking for versions: ", e);
         }
 
@@ -303,7 +307,10 @@ public class UpdateCheckerUtil {
 
                 return results;
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            LOGGER.error("Error checking for updates: ", e);
+        } catch (IOException | RuntimeException e) {
             LOGGER.error("Error checking for updates: ", e);
         }
 
