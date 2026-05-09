@@ -11,7 +11,6 @@ import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModSearch;
 import com.terraformersmc.modmenu.util.mod.fabric.FabricIconHandler;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,16 +21,18 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Mth;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class ModListWidget extends ObjectSelectionList<ModListEntry> implements AutoCloseable {
     public static final boolean DEBUG = Boolean.getBoolean("modmenu.debug");
     private final ModsScreen parent;
-    private List<Mod> mods = null;
+    private @Nullable List<Mod> mods = null;
     private final Set<Mod> addedMods = new HashSet<>();
-    private String selectedModId = null;
-    //private boolean scrolling;
+    private @Nullable String selectedModId = null;
     private final FabricIconHandler iconHandler = new FabricIconHandler();
-    private Double restoreScrollY = null;
+    private @Nullable Double restoreScrollY = null;
 
     public ModListWidget(
             Minecraft client,
@@ -39,7 +40,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
             int height,
             int y,
             int itemHeight,
-            ModListWidget list,
+            @Nullable ModListWidget list,
             ModsScreen parent
     ) {
         super(client, width, height, y, itemHeight);
@@ -66,7 +67,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
         return parent.getFocused() == this;
     }
 
-    public void select(ModListEntry entry) {
+    public void select(@Nullable ModListEntry entry) {
         this.setSelected(entry);
         if (entry != null) {
             Mod mod = entry.getMod();
@@ -241,9 +242,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
         int nextY = this.getY() + 2 - (int) this.scrollAmount();
 
         for (ModListEntry entry : children()) {
-            entry.setX(rowLeft);
-            entry.setWidth(rowWidth);
-            entry.setY(nextY);
+            entry.updatePlacement(rowLeft, rowWidth, nextY);
             nextY += entry.getHeight();
         }
     }
@@ -322,7 +321,7 @@ public class ModListWidget extends ObjectSelectionList<ModListEntry> implements 
         return false;
     }
 
-    public final ModListEntry getEntryAtPos(double x, double y) {
+    public final @Nullable ModListEntry getEntryAtPos(double x, double y) {
         int int_5 = Mth.floor(y - (double) this.getY()) + (int) this.scrollAmount() - 4;
         int index = int_5 / this.defaultEntryHeight;
         return x < (double) this.scrollBarX() && x >= (double) getRowLeft() && x <= (double) (getRowLeft() + getRowWidth()) && index >= 0 && int_5 >= 0 && index < this.getItemCount() ? this.children().get(index) : null;

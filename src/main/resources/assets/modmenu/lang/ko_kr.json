@@ -108,7 +108,6 @@
   "modmenu.javaDistributionName": "실행 환경: %s",
 
   "modmenu.options": "Mod Menu 설정",
-  "option.value_label": "%s: %s",
   "option.modmenu.sorting": "정렬",
   "option.modmenu.sorting.ascending": "A-Z",
   "option.modmenu.sorting.descending": "Z-A",
