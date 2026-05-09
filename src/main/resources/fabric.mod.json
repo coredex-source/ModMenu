@@ -25,7 +25,7 @@
     "fabric-key-mapping-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
     "fabricloader": ">=0.17.2",
-    "minecraft": ">1.26-"
+    "minecraft": ">=26.2-"
   },
   "authors": [
     "Prospector",
@@ -102,7 +102,8 @@
     "lowercasebtw",
     "tnoctua",
     "litetex",
-    "Starmoe(Celestia)"
+    "Starmoe(Celestia)",
+	"Coredex"
   ],
   "description": "Adds a mod menu to view the list of mods you have installed.",
   "mixins": [
