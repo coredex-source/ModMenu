@@ -51,8 +51,6 @@ public class FabricIconHandler implements Closeable {
         } catch (Throwable t) {
             if (!iconPath.equals("assets/" + iconSource.getMetadata().getId() + "/icon.png")) {
                 LOGGER.error("Invalid mod icon for icon source {}: {}", iconSource.getMetadata().getId(), iconPath);
-            } else {
-                LOGGER.error(t.getMessage());
             }
 
             return null;
