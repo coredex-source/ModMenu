@@ -5,7 +5,7 @@ import com.terraformersmc.modmenu.ModMenu;
 import java.text.NumberFormat;
 import java.util.Arrays;
 
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 
 public class TranslationUtil {
@@ -45,7 +45,7 @@ public class TranslationUtil {
                 }
             }
             lastKey = fullKey.toString();
-            if (I18n.exists(lastKey)) {
+            if (Language.getInstance().has(lastKey)) {
                 return Component.translatable(lastKey, realArgs);
             }
         }

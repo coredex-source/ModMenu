@@ -8,6 +8,7 @@ import com.terraformersmc.modmenu.config.ModMenuConfig;
 import com.terraformersmc.modmenu.util.mod.fabric.FabricIconHandler;
 import eu.pb4.placeholders.api.ParserContext;
 import net.fabricmc.loader.api.metadata.ContactInformation;
+import net.minecraft.locale.Language;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,8 +28,8 @@ public interface Mod {
     @NotNull
     default String getTranslatedName() {
         String translationKey = "modmenu.nameTranslation." + getId();
-        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_NAMES.getValue()) && I18n.exists(
-                translationKey)) {
+        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_NAMES.getValue()) &&
+                Language.getInstance().has(translationKey)) {
             return I18n.get(translationKey);
         } else {
             return getName();
@@ -48,8 +49,8 @@ public interface Mod {
     @NotNull
     default String getTranslatedSummary() {
         String translationKey = "modmenu.summaryTranslation." + getId();
-        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_DESCRIPTIONS.getValue()) && I18n.exists(
-                translationKey)) {
+        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_DESCRIPTIONS.getValue()) &&
+                Language.getInstance().has(translationKey)) {
             return I18n.get(translationKey);
         } else {
             return getTranslatedDescription();
@@ -61,8 +62,8 @@ public interface Mod {
     @NotNull
     default String getTranslatedDescription() {
         String translatableDescriptionKey = "modmenu.descriptionTranslation." + getId();
-        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_DESCRIPTIONS.getValue()) && I18n.exists(
-                translatableDescriptionKey)) {
+        if ((getId().equals("minecraft") || getId().equals("java") || ModMenuConfig.TRANSLATE_DESCRIPTIONS.getValue()) &&
+                Language.getInstance().has(translatableDescriptionKey)) {
             return I18n.get(translatableDescriptionKey);
         } else {
             return getDescription();

@@ -25,7 +25,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.Nullable;
@@ -258,8 +258,8 @@ public class ModMenu implements ClientModInitializer {
                 modsText.append(Component.literal(" ")).append(Component.translatable("modmenu.loaded.short", count));
             } else {
                 String specificKey = "modmenu.loaded." + count;
-                String key = I18n.exists(specificKey) ? specificKey : "modmenu.loaded";
-                if (ModMenuConfig.EASTER_EGGS.getValue() && I18n.exists(specificKey + ".secret")) {
+                String key = Language.getInstance().has(specificKey) ? specificKey : "modmenu.loaded";
+                if (ModMenuConfig.EASTER_EGGS.getValue() && Language.getInstance().has(specificKey + ".secret")) {
                     key = specificKey + ".secret";
                 }
                 modsText.append(Component.literal(" ")).append(Component.translatable(key, count));
