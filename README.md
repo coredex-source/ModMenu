@@ -21,9 +21,11 @@ Here's an example of Mod Menu's translations into Pirate Speak. To create your o
 
 `en_pt.json`
 ```json
-"modmenu.nameTranslation.modmenu": "Menu o' mods!",
-"modmenu.descriptionTranslation.modmenu": "Menu o' mods ye installed matey!",
-"modmenu.summaryTranslation.modmenu": "Menu o' mods ye installed matey!"
+{
+    "modmenu.nameTranslation.modmenu": "Menu o' mods!",
+    "modmenu.descriptionTranslation.modmenu": "Menu o' mods ye installed matey!",
+    "modmenu.summaryTranslation.modmenu": "Menu o' mods ye installed matey!"
+}
 ```
 
 > The summary translation is redundant here and does not need to be included because it's the same as the description, but it was included to show that you may translate the summary (a short, one-sentence description of the mod) separately from the description, even in English!
